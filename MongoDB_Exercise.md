@@ -17,3 +17,18 @@ db.students.updateMany({}, {$set: {year: NumberInt(2025)}})
 db.students.updateOne({name: "Mr S. Global"}, {$unset: {newField: null}})
 db.students.deleteOne({'name': 'Mr S. Global'})
 ```
+<hr>
+
+### Exercise 1
+**Create a collection to store information about your favourite films. Add appropriate validation rules, then insert at least 3 documents. Practice using both .insertOne() and .insertMany(). You may want to type commands into a text editor then paste into the shell**
+
+*My solution along with some exploration*:
+```
+db.createCollection("films")
+db.createCollection("favourite-films")
+db.films.drop()
+db['favourite-films'].insertOne({name: "Inception", year: 2010,director: "Christopher Nolan"})
+db['favourite-films'].insertMany([{name: "Titanic", year: 1997,director: "James Cameron"},
+  {name: "Avatar", year: 2009,director: "James Cameron"}])
+```
+
