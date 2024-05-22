@@ -107,3 +107,19 @@ Sharding is a method for distributing data across multiple machines. MongoDB use
 - High availability with replica sets.
 - Good performance for read and write operations.
 
+### Disadvantages of MongoDB?
+- Complexity in managing sharded clusters.
+- Potential consistency issues with eventual consistency.
+- Limited support for complex transactions.
+
+### What scenarios is MongoDB good for?
+- Applications with large volumes of unstructured or semi-structured data.
+- Real-time analytics and big data applications.
+- Content management systems.
+- E-commerce platforms requiring flexible schema design.
+
+### What scenarios is it not good for?
+- Applications requiring complex transactions and strong consistency.
+- Systems with well-defined, structured data and fixed schema.
+- Applications requiring advanced querying capabilities and complex joins.
+
