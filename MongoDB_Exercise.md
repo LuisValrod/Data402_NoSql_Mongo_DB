@@ -20,7 +20,7 @@ db.students.deleteOne({'name': 'Mr S. Global'})
 <hr>
 
 ### Exercise 1
-**Create a collection to store information about your favourite films. Add appropriate validation rules, then insert at least 3 documents. Practice using both .insertOne() and .insertMany(). You may want to type commands into a text editor then paste into the shell**
+**Create a collection to store information about your favourite films. <br>Add appropriate validation rules, then insert at least 3 documents.<br> Practice using both .insertOne() and .insertMany().<br> You may want to type commands into a text editor then paste into the shell**
 
 *My solution along with some exploration*:
 ```shell
@@ -56,7 +56,7 @@ db['favourite-films'].deleteOne({ 'name': 'Fight Club' })
 *DONE*
 
 ### Exercise 4
-**Download StarWars.zip. Extract it in a reasonable location. In the terminal (not mongosh) navigate to the folder, make sure it is the one that has all of the json file. Then run the following command to add each to a new db called "starwars"**
+**Download StarWars.zip. Extract it in a reasonable location. <br>In the terminal (not mongosh) navigate to the folder, make sure it is the one that has all of the json file. Then run the following command to add each to a new db called "starwars"**
 
 ```shell
 for i in *.json; do
@@ -111,8 +111,8 @@ db.characters.find({'eye_color': {$in: ['orange', 'yellow']}}).pretty()
 ```
 
 ### Exercise 8
-**You can combine filters using $and or $or**
-**Write a query that filter for characters that have both blue eyes and are female
+**You can combine filters using $and or $or**<br>
+**Write a query that filter for characters that have both blue eyes and are female <br>
 Then write a query that filters for characters that have either blue eyes or are female**
 
 ```shell
@@ -126,7 +126,7 @@ db.characters.find({$or: [{ eye_color: "blue" },{ gender: "female" }]}).pretty()
 ```
 
 ### Exercise 9
-**You can use comparison operators in your queries**
+**You can use comparison operators in your queries**<br>
 **Write a query that finds characters with a height over 200cm**
 
 ```shell
@@ -142,6 +142,28 @@ db.characters.find().forEach(function(doc) {
     );
   }
 });
+
+```
+
+### Exercise 10
+**Experiment with the following operators. What does each do?**
+```shell
+db.characters.find({ eye_color: { $eq: "blue" } }) // $eq -> return entries with blue eyes
+
+db.characters.find({'height':{$gt: 200}}) // $gt -> return entries with height greater than 200
+
+db.characters.find({'height':{$gte: 200}}) //$gte -> return entries with height greater than or equal to 200
+
+db.characters.find({'eye_color': {$in: ['orange', 'yellow']}}) // $in -> return entries where the field eye_color equals any of the values in the array
+
+db.characters.find({'height':{$lt: 200}}) //$lt -> return entries with height less than 200
+
+db.characters.find({'height': {$lte: 200}}) // $lte -> return entries with height less than or equal to 200
+
+db.characters.find({ eye_color: { $ne: "blue" } }) // $ne -> return entries where value of eye_color is not equal to blue
+
+db.character.find({eye_color: {$nin: ['blue', 'yellow', 'orange', 'brown']}}) // $nin -> return entries where the value of eye_color is not any of the values in the array
+
 
 ```
 
