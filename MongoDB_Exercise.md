@@ -89,3 +89,66 @@ db.characters.findOne({name: 'Ackbar'}, {species: 1})
 // once seen the structure, execute the following command
 db.characters.findOne({name: 'Ackbar'}, {"species.name": 1})
 ```
+
+### Exercise 6
+**Write a query that gives us only the names + homeworld names of humans in the database?**
+
+```shell
+db.characters.find({'species.name': 'Human'}, {_id: 0, name: 1 , 'homeworld.name': 1})
+
+```
+
+### Exercise 7
+**Write a query that gives us all the entries that have an eye_colour of either "yellow" or "orange"**
+
+```shell
+db.characters.find({'eye_color': {$in: ['orange', 'yellow']}})
+
+// also for better format
+
+db.characters.find({'eye_color': {$in: ['orange', 'yellow']}}).pretty()
+
+```
+
+### Exercise 8
+**You can combine filters using $and or $or**
+**Write a query that filter for characters that have both blue eyes and are female
+Then write a query that filters for characters that have either blue eyes or are female**
+
+```shell
+// first query to filter female entries with blue eyes
+db.characters.find({$and: [{ eye_color: "blue" },{ gender: "female" }]}).pretty()
+
+// second query to filter characters that have blue eyes or are female
+
+db.characters.find({$or: [{ eye_color: "blue" },{ gender: "female" }]}).pretty()
+
+```
+
+### Exercise 9
+**You can use comparison operators in your queries**
+**Write a query that finds characters with a height over 200cm**
+
+```shell
+// Query to find characters with height over 200cm
+db.characters.find({'height':{$gt: 200}}).pretty()
+
+// Query to format the height to int
+db.characters.find().forEach(function(doc) {
+  if (typeof doc.height === 'string' && !isNaN(doc.height)) {
+    db.characters.updateOne(
+      { _id: doc._id },
+      { $set: { height: parseInt(doc.height) } }
+    );
+  }
+});
+
+```
+
+
+
+
+
+
+
+
