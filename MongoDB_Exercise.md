@@ -143,6 +143,51 @@ db.characters.find().forEach(function(doc) {
   }
 });
 
+// // //
+
+//Method 1 (simple)
+//Unset/set method - First query selects all documents where height = "unknown" and removes the height field from those documents only.
+ 
+
+db.characters.updateMany(
+  {height: "unknown"},
+  {$unset: {height: ""}}
+)
+ 
+The second query gets all records and if they have a height feild, converts the contents to an int
+
+db.characters.updateMany(
+  {},
+  [{$set: {height: {$toInt: "$height"}}}]
+)
+
+// // //
+
+db.characters.updateMany(
+  { height: "unknown" }, // Filter for documents where height is "unknown"
+  [
+    { 
+      $set: { 
+        height: null // set the "unknown" to null      } 
+    }
+  ]
+);
+ 
+db.characters.updateMany(
+  { height: { $exists: true, $type: "string" } }, // filter for documents where height exists (and is not null) and is a string
+  [
+    { 
+      $set: { 
+        height: { 
+          $toInt: "$height" 
+        } 
+      } 
+    }
+  ]
+);
+ 
+db.characters.find({ height: { $gt: 200 } });
+
 ```
 
 ### Exercise 10
