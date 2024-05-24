@@ -167,6 +167,54 @@ db.character.find({eye_color: {$nin: ['blue', 'yellow', 'orange', 'brown']}}) //
 
 ```
 
+### Exercises with pymongo:
+
+```python
+import pymongo
+
+# Connecting to MongoDB
+client = pymongo.MongoClient()
+db = client["starwars"]
+
+# Retrieve a document from the database
+
+luke = db.characters.find_one({"name": "Luke Skywalker"})
+
+# print(luke)
+
+# getting only certain fields
+
+luke_short = db.characters.find_one({"name": "Luke Skywalker"},
+                                    {"name": 1, "eye_color": 1, "_id": 0})
+# print(luke_short)
+
+# Iterating through multiple records/documents
+
+droids = db.characters.find({"species.name": "Droid"}, {"_id": 0, "name": 1})
+# for droid in droids:
+#     print(droid['name'])
+
+# Exercise 1 - Find the height of Darth Vader, only return results for the name and the height.
+darth_vader_height = db.characters.find_one({"name": "Darth Vader"}, {"_id": 0, "name": 1, "height": 1})
+# print(darth_vader_height)
+
+# Exercise 2 - Find all characters with yellow eyes, only return results for the names of the characters.
+characters_yellow_eyes = db.characters.find({"eye_color": "yellow"}, {"_id": 0, "name": 1})
+# for n in characters_yellow_eyes:
+#     print(n['name'])
+
+# Exercise 3 - Find male characters. Limit your results to only show the first 3.
+males_characters = db.characters.find({'gender': 'male'}, {'_id': 0, 'name': 1}).limit(3)
+# for n in males_characters:
+#     print(n)
+
+# Exercise 4 -Find the names of all the humans whose homeworld is Alderaan.
+characters_from_alderaban = db.characters.find({'homeworld.name': 'Alderaan'}, {'_id': 0, 'name': 1, 'homeworld.name': 1})
+
+for n in characters_from_alderaban:
+    print(n)
+```
+
 
 
 
