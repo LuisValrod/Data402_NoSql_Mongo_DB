@@ -260,6 +260,58 @@ for n in characters_from_alderaban:
     print(n)
 ```
 
+### Mongo advanced
+```shell
+db.characters.aggregate({
+$match: {"species.name": "Human"}
+}, {
+$group: {
+_id: null,
+total_height: {$sum: "$height"}}
+})
+//
+db.characters.aggregate([
+  {$match: {"species.name": "Human"}},
+  {$group: {_id: "$gender", total: {$sum: "$height"}}}
+])
+//
+
+// // //
+// Find the max height pero homeworld
+db.characters.aggregate([{
+$group: {
+_id: "$homeworld.name",
+maxHeight: {$max: "$height"
+}}}])
+
+//
+db.characters.aggregate([
+  {$match: {"species.name": "Human"}},
+  {$group: {_id: "$gender", total: {$sum: "$height"}}}
+])
+//
+
+db.characters.count({})
+//
+
+db.characters.count({"species.name": "Human"})
+
+//
+# Max height
+max_height = db.characters.aggregate([
+    {"$group":
+         {"_id": None, "max_height": {"$max": "$height"}}
+    }
+]).next()["max_height"]
+
+for tallest in db.characters.find({"height": max_height}):
+    print(tallest["name"], tallest["height"])
+
+//
+db.characters.distinct('species.name')
+
+
+
 
 
 
